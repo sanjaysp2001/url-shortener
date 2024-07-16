@@ -1,5 +1,5 @@
 import "./App.css";
-import GradientSpinner from "./components/GradientSpinner";
+// import GradientSpinner from "./components/GradientSpinner";
 import Hero from "./components/Hero";
 import ImageComponent from "./components/ImageComponent";
 import URLInputForm from "./components/URLInputForm";
