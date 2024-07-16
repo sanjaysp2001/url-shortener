@@ -7,14 +7,14 @@ const Hero = () => {
         <TypeAnimation
           sequence={[
             "Create URLs that are easy to use!",
-            1000,
+            1500,
             "Create URLs that are easy to remember!",
-            1000,
+            1500,
             "Create URLs that are easy to share!",
-            1000,
+            1500,
           ]}
           wrapper="span"
-          speed={50}
+          speed={35}
           repeat={Infinity}
         />
       </div>
