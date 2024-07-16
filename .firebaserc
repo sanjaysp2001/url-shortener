@@ -1,5 +1,9 @@
 {
   "projects": {
+    "prod": "shorturl-sp",
     "default": "shorturl-sp"
-  }
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }
