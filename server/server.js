@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { configDotenv } from "dotenv";
 configDotenv();
 
@@ -9,6 +10,7 @@ import urlController from "./controllers/url.controller.js";
 
 // For parsing application/json
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use("/url", urlController);
 

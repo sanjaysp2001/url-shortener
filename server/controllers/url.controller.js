@@ -14,24 +14,28 @@ const getNextSequenceValue = async () => {
 };
 urlController.post("/createurl", (req, res) => {
   const longURL = req.body.url;
-  URLModel.findOne({ originalURL: longURL }).then(async (url) => {
-    if (!url) {
-      let uniqueId = await getNextSequenceValue();
-      let createdURL = {
-        uid: uniqueId,
-        originalURL: longURL,
-        shortURL: encode(uniqueId),
-        createdAt: new Date(),
-      };
-      //console.log(encode(uniqueId));
-      url = await URLModel.create(createdURL);
-      console.log(url);
-    }
-    res.status(201).json({
-      message: "Success! Short URL generated successfully",
-      shortURL: url.shortURL,
+  URLModel.findOne({ originalURL: longURL })
+    .then(async (url) => {
+      if (!url) {
+        let uniqueId = await getNextSequenceValue();
+        let createdURL = {
+          uid: uniqueId,
+          originalURL: longURL,
+          shortURL: encode(uniqueId),
+          createdAt: new Date(),
+        };
+        //console.log(encode(uniqueId));
+        url = await URLModel.create(createdURL);
+        console.log(url);
+      }
+      res.status(200).json({
+        message: "Success! Short URL generated successfully",
+        shortURL: url.shortURL,
+      });
+    })
+    .catch((error) => {
+      res.status(500).json({ message: `Error: ${error.message}` });
     });
-  });
 });
 
 export default urlController;
