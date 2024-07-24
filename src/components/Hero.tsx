@@ -19,7 +19,7 @@ const Hero = () => {
         />
       </div>
 
-      <p className="text-lg font-normal text-secondary-color lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400 mt-5">
+      <p className="text-md font-normal text-secondary-color lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400 mt-10">
         This URL Shortener works wonders by reducing your URL into managable
         size. Try it out now and be done with the hassle of long and boring
         URLS!
