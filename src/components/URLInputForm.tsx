@@ -14,6 +14,8 @@ const URLInputForm = () => {
     error: "",
     short_url: "",
   });
+  console.log("End",endpoints);
+  
   const handleFormSubmit = () => {
     if (formData.long_url != "") {
       if (isURL(formData.long_url)) {
