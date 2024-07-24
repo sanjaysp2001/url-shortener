@@ -5,6 +5,7 @@ import isURL from "validator/es/lib/isURL";
 import GradientSpinner from "./GradientSpinner";
 import { endpoints } from "../config/endpoints.js";
 import CustomModal from "./Modal";
+import { AnimatePresence } from "framer-motion";
 
 const URLInputForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,8 +15,8 @@ const URLInputForm = () => {
     error: "",
     short_url: "",
   });
-  console.log("End",endpoints);
-  
+  console.log("End", endpoints);
+
   const handleFormSubmit = () => {
     if (formData.long_url != "") {
       if (isURL(formData.long_url)) {
@@ -44,6 +45,7 @@ const URLInputForm = () => {
           });
         //Do the backend api calls
       } else {
+        setFormData({ long_url: "", short_url: "", error: "" });
         toast.error("Please enter a valid URL!", {
           position: "top-right",
           autoClose: 2500,
@@ -69,14 +71,16 @@ const URLInputForm = () => {
   return (
     <>
       {isLoading && <GradientSpinner />}
-      {isModalOpen && (
-        <CustomModal
-          setIsModalOpen={setIsModalOpen}
-          url={formData.short_url}
-          error={formData.error}
-        />
-      )}
-
+      <AnimatePresence>
+        {isModalOpen && (
+          <CustomModal
+            setIsModalOpen={setIsModalOpen}
+            url={formData.short_url}
+            error={formData.error}
+            setFormData={setFormData}
+          />
+        )}
+      </AnimatePresence>
       <div className="flex flex-col items-center col-span-3 md:w-11/12 md:flex-row md:col-span-2">
         <div className="w-9/12">
           <label
