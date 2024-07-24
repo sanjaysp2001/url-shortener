@@ -2,9 +2,8 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import isURL from "validator/es/lib/isURL";
-// import Modal from "react-minimal-modal";
 import GradientSpinner from "./GradientSpinner";
-import endpoints from "../config/endpoints.json";
+import { endpoints } from "../config/endpoints.js";
 import CustomModal from "./Modal";
 
 const URLInputForm = () => {
@@ -20,16 +19,14 @@ const URLInputForm = () => {
       if (isURL(formData.long_url)) {
         setIsLoading(true);
         axios
-          .post(endpoints.createURL, {
+          .post(endpoints.CREATE_URL, {
             url: formData.long_url,
           })
           .then((res) => {
             console.log(res.data);
             setFormData({
               ...formData,
-              short_url: `https://${import.meta.env.VITE_BACKEND_HOSTNAME}/${
-                res.data.shortURL
-              }`,
+              short_url: `${window.location.protocol}//${window.location.hostname}/${res.data.shortURL}`,
             });
             setIsModalOpen(true);
             setIsLoading(false);
@@ -71,7 +68,11 @@ const URLInputForm = () => {
     <>
       {isLoading && <GradientSpinner />}
       {isModalOpen && (
-        <CustomModal setIsModalOpen={setIsModalOpen} url={formData.short_url} />
+        <CustomModal
+          setIsModalOpen={setIsModalOpen}
+          url={formData.short_url}
+          error={formData.error}
+        />
       )}
 
       <div className="flex flex-col items-center col-span-3 md:w-11/12 md:flex-row md:col-span-2">

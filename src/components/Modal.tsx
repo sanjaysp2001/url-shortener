@@ -1,9 +1,9 @@
-const CustomModal = ({ setIsModalOpen, url }) => {
+const CustomModal = ({ setIsModalOpen, url, error }) => {
   return (
     <div className="fixed z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 rounded-xl ">
       <div className="relative top-40 mx-auto shadow-xl rounded-md bg-white max-w-md">
         <div className="flex justify-end p-2">
-          <h1 className="text-4xl text-center m-2">Success</h1>
+          <h1 className="text-4xl text-center m-2">{error?"Error":"Success"}</h1>
           <button
             type="button"
             onClick={() => {
@@ -27,7 +27,15 @@ const CustomModal = ({ setIsModalOpen, url }) => {
         </div>
 
         <div className="p-6 pt-0 text-center">
-          <h3 className="text-xl font-normal text-gray-500 mt-5 mb-6">{url}</h3>
+          {error ? (
+            <h3 className="text-xl font-normal text-gray-500 mt-5 mb-6">
+              {error.message}
+            </h3>
+          ) : (
+            <h3 className="text-xl font-normal text-gray-500 mt-5 mb-6">
+              {url}
+            </h3>
+          )}
 
           <a
             href="#"
