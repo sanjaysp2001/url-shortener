@@ -15,35 +15,40 @@ const URLInputForm = () => {
     error: "",
     short_url: "",
   });
-  console.log("End", endpoints);
 
   const handleFormSubmit = () => {
     if (formData.long_url != "") {
       if (isURL(formData.long_url)) {
         setIsLoading(true);
-        axios
-          .post(endpoints.CREATE_URL, {
-            url: formData.long_url,
-          })
-          .then((res) => {
-            console.log(res.data);
-            setFormData({
-              ...formData,
-              short_url: `${window.location.protocol}//${window.location.hostname}/${res.data.shortURL}`,
+        if (endpoints.CREATE_URL != undefined) {
+          axios
+            .post(endpoints.CREATE_URL, {
+              url: formData.long_url,
+            })
+            .then((res) => {
+              setFormData({
+                ...formData,
+                short_url: `${window.location.protocol}//${window.location.hostname}/${res.data.shortURL}`,
+              });
+              setIsModalOpen(true);
+              setIsLoading(false);
+            })
+            .catch((err) => {
+              console.log(err);
+              setFormData({
+                ...formData,
+                error: err,
+              });
+              setIsModalOpen(true);
+              setIsLoading(false);
             });
-            setIsModalOpen(true);
-            setIsLoading(false);
-          })
-          .catch((err) => {
-            console.log(err);
-            setFormData({
-              ...formData,
-              error: err,
-            });
-            setIsModalOpen(true);
-            setIsLoading(false);
+        } else {
+          setFormData({
+            ...formData,
+            error: "Error",
           });
-        //Do the backend api calls
+          setIsModalOpen(true);
+        }
       } else {
         setFormData({ long_url: "", short_url: "", error: "" });
         toast.error("Please enter a valid URL!", {
@@ -81,13 +86,13 @@ const URLInputForm = () => {
           />
         )}
       </AnimatePresence>
-      <div className="flex flex-col items-center col-span-3 md:w-11/12 md:flex-row md:col-span-2">
+      <div className="flex flex-col items-center col-span-3 md:w-11/12 md:flex-row md:col-span-2 mb-4">
         <div className="w-9/12">
           <label
             htmlFor="long_url"
-            className="block text-xl font-medium mb-2 text-secondary-color"
+            className="block text-xl font-medium mb-2 text-secondary-color text-center sm:text-left"
           >
-            Type or paste your URL here
+            Enter your URL here
           </label>
           <input
             name="url"
@@ -105,7 +110,7 @@ const URLInputForm = () => {
 
         <button
           type="button"
-          className="mt-8 md:ml-6 text-white w-[100px] bg-gradient-to-br from-primary-color to-secondary-color hover:bg-gradient-to-bl font-medium rounded-2xl  text-md px-8 py-3.5 text-center transform active:scale-90 transition-transform"
+          className="mt-8 sm:ml-6 md:ml-6 text-white w-[100px] bg-gradient-to-br from-primary-color to-secondary-color hover:bg-gradient-to-bl font-medium rounded-2xl  text-md px-8 py-3.5 text-center transform active:scale-90 transition-transform"
           onClick={handleFormSubmit}
         >
           <span>Go</span>
