@@ -26,10 +26,18 @@ const URLInputForm = () => {
               url: formData.long_url,
             })
             .then((res) => {
-              setFormData({
-                ...formData,
-                short_url: `${window.location.protocol}//${window.location.hostname}/${res.data.shortURL}`,
-              });
+              if (res != undefined) {
+                setFormData({
+                  ...formData,
+                  short_url: `${window.location.protocol}//${window.location.hostname}/${res.data.shortURL}`,
+                });
+              }else{
+                setFormData({
+                  ...formData,
+                  error: "Error",
+                });
+              }
+
               setIsModalOpen(true);
               setIsLoading(false);
             })
@@ -37,7 +45,7 @@ const URLInputForm = () => {
               console.log(err);
               setFormData({
                 ...formData,
-                error: err,
+                error: err.message,
               });
               setIsModalOpen(true);
               setIsLoading(false);

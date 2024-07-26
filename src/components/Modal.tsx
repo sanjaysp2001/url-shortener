@@ -81,7 +81,7 @@ const CustomModal = ({ setIsModalOpen, url, error, setFormData }) => {
           <div>
             {error ? (
               <h3 className="text-xl font-normal text-gray-500 mt-5 mb-6">
-                {error.message}
+                {error}
               </h3>
             ) : (
               <h3 className="text-xl font-normal text-gray-500 mt-5 mb-6">
